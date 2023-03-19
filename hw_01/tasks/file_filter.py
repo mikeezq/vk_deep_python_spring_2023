@@ -7,15 +7,12 @@ def find_matches(line: str, words: List[str]) -> bool:
     for word in words:
         if word in line_words:
             return True
-    else:
-        return False
+    return False
 
 
 def file_filter(file_object: [str, StringIO], words: List[str]) -> Generator[str, str, None]:
-    print(type(file_object))
-    print(file_object)
     if isinstance(file_object, str):
-        with open(file_object, "r") as file:
+        with open(file_object, "r", encoding="UTF-8") as file:
             for line in file:
                 if find_matches(line, words):
                     yield line.strip()

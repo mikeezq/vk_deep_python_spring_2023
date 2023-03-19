@@ -1,6 +1,6 @@
-import pytest
-
 from unittest import TestCase, mock
+
+import pytest
 
 from hw_01.tasks.predict_message import SomeModel, predict_message_mood
 

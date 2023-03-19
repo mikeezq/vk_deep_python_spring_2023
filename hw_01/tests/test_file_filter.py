@@ -1,8 +1,9 @@
+from unittest import TestCase
+from io import StringIO
+
 import os
 import pytest
 
-from io import StringIO
-from unittest import TestCase
 
 from hw_01.tasks.file_filter import file_filter
 
@@ -27,7 +28,7 @@ class TestFileFilter(TestCase):
         buffer.write("buffer object\nOBJECT\ntest")
         match_lines = file_filter(buffer, words=["object", "test"])
 
-        self.assertEqual(len([line for line in match_lines]), 3)
+        self.assertEqual(len(list(match_lines)), 3)
 
     def test_incorrect_file_objects(self):
         with pytest.raises(TypeError, match="File object must be path to file or StringIo object"):

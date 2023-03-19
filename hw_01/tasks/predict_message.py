@@ -14,7 +14,6 @@ def predict_message_mood(message: str, model: SomeModel, bad_thresholds: float =
     predict = model.predict(message)
     if predict > good_thresholds:
         return "отл"
-    elif predict < bad_thresholds:
+    if predict < bad_thresholds:
         return "неуд"
-    else:
-        return "норм"
+    return "норм"
