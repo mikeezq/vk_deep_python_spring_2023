@@ -5,7 +5,7 @@ import os
 import pytest
 
 
-from hw_01.tasks.file_filter import file_filter
+from tasks.file_filter import file_filter
 
 
 class TestFileFilter(TestCase):
