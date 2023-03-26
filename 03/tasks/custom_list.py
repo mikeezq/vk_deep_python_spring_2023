@@ -1,0 +1,56 @@
+from itertools import zip_longest
+
+
+class CustomList(list):
+    _comparing_error_msg = "Can only be compared with list or CustomList types"
+    _add_error_msg = "Only list or CustomList can be stacked with each other"
+    _sub_error_msg = "Only list or CustomList can be subtracted with each other"
+
+    @staticmethod
+    def _check_type(other, msg):
+        if not isinstance(other, (list, CustomList)):
+            raise TypeError(msg)
+
+    def __eq__(self, other):
+        CustomList._check_type(other, CustomList._comparing_error_msg)
+        return len(self) == len(other)
+
+    def __ne__(self, other):
+        CustomList._check_type(other, CustomList._comparing_error_msg)
+        return len(self) != len(other)
+
+    def __lt__(self, other):
+        CustomList._check_type(other, CustomList._comparing_error_msg)
+        return len(self) < len(other)
+
+    def __gt__(self, other):
+        CustomList._check_type(other, CustomList._comparing_error_msg)
+        return len(self) > len(other)
+
+    def __le__(self, other):
+        CustomList._check_type(other, CustomList._comparing_error_msg)
+        return len(self) <= len(other)
+
+    def __ge__(self, other):
+        CustomList._check_type(other, CustomList._comparing_error_msg)
+        return len(self) >= len(other)
+
+    def __add__(self, other):
+        CustomList._check_type(other, CustomList._add_error_msg)
+        return CustomList([x + y for x, y in zip_longest(self, other, fillvalue=0)])
+
+    def __radd__(self, other):
+        CustomList._check_type(other, CustomList._add_error_msg)
+        return CustomList.__add__(self, other)
+
+    def __sub__(self, other):
+        CustomList._check_type(other, CustomList._sub_error_msg)
+        return CustomList([x - y for x, y in zip_longest(self, other, fillvalue=0)])
+
+    def __rsub__(self, other):
+        CustomList._check_type(other, CustomList._sub_error_msg)
+        return CustomList.__sub__(self, other)
+
+    def __str__(self):
+        list_copy = self.copy()
+        return f"{list_copy}, sum={sum(list_copy)}"
