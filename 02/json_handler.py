@@ -16,9 +16,13 @@ def parse_json(json_str: str, keyword_callback, required_fields: List[str] = Non
         if key in required_fields:
             for word in f_json[key].split():
                 if word in keywords:
-                    change_keywords(key, word)
+                    keyword_callback(key, word)
     return f_json
 
 
 def change_keywords(required_field: str, keyword: str) -> str:
+    return f"{required_field} + {keyword}"
+
+
+def change_keywords2(required_field: str, keyword: str) -> str:
     return f"{required_field} + {keyword}"

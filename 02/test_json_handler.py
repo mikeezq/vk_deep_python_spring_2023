@@ -37,6 +37,13 @@ class TestJsonHandler(TestCase):
                 parse_json(json.dumps(json_set), mock_changer, ["name"], ["test"])
             self.assertEqual(mock_changer.call_count, 100)
 
+        with patch("json_handler.change_keywords2") as mock_changer:
+            parse_json_call = functools.partial(parse_json, json_str, mock_changer)
+            parse_json_call(["keyword1", "keyword2"], ["cat", "test"])
+            parse_json_call(["keyword1"], ["cat"])
+
+            assert mock_changer.call_count == 4
+
     @patch("json_handler.change_keywords")
     def test_incorrect_jsons(self, mock_changer):
         self.assertIsNone(parse_json("", mock_changer))
