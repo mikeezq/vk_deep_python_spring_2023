@@ -13,27 +13,28 @@ class CustomList(list):
 
     def __eq__(self, other):
         CustomList._check_type(other, CustomList._comparing_error_msg)
-        return len(self) == len(other)
+        return sum(self) == sum(other) and len(self) == len(other) and all(self[i] == other[i]
+                                                                           for i in range(len(self)))
 
     def __ne__(self, other):
         CustomList._check_type(other, CustomList._comparing_error_msg)
-        return len(self) != len(other)
+        return sum(self) != sum(other) or len(self) != len(other) or any(self[i] != other[i] for i in range(len(self)))
 
     def __lt__(self, other):
         CustomList._check_type(other, CustomList._comparing_error_msg)
-        return len(self) < len(other)
+        return sum(self) < sum(other)
 
     def __gt__(self, other):
         CustomList._check_type(other, CustomList._comparing_error_msg)
-        return len(self) > len(other)
+        return sum(self) > sum(other)
 
     def __le__(self, other):
         CustomList._check_type(other, CustomList._comparing_error_msg)
-        return len(self) <= len(other)
+        return sum(self) <= sum(other)
 
     def __ge__(self, other):
         CustomList._check_type(other, CustomList._comparing_error_msg)
-        return len(self) >= len(other)
+        return sum(self) >= sum(other)
 
     def __add__(self, other):
         CustomList._check_type(other, CustomList._add_error_msg)
@@ -49,7 +50,7 @@ class CustomList(list):
 
     def __rsub__(self, other):
         CustomList._check_type(other, CustomList._sub_error_msg)
-        return CustomList.__sub__(self, other)
+        return CustomList([x - y for x, y in zip_longest(other, self, fillvalue=0)])
 
     def __str__(self):
         list_copy = self.copy()
