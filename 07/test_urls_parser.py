@@ -11,8 +11,10 @@ from urls_parser import fetch_urls
 
 class TestUrlsParser(AsyncTestCase):
     async def test_async_parse(self):
-        ret = await fetch_urls([5, "test_urls.txt"])
-        assert ret == 3
+        async_mock = AsyncMock()
+        with mock.patch("urls_parser.fetch_url", side_effect=async_mock) as mock_fetch_url:
+            await fetch_urls([5, "test_urls.txt"])
+            assert mock_fetch_url.call_count == 3
 
         async_mock = AsyncMock()
         with mock.patch("urls_parser.fetch_url", side_effect=async_mock) as mock_fetch_url:
