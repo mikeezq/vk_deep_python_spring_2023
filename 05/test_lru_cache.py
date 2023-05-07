@@ -20,11 +20,11 @@ class TestLruCache(TestCase):
         assert cache.get("k2") is None
         assert cache.get("k1") == "val1"
 
-        cache.set("k1", "new_val")
+        cache.set("k3", "new_val")
         cache.set("k4", "val4")
 
-        assert cache.get("k3") is None
-        assert cache.get("k1") == "new_val"
+        assert cache.get("k1") is None
+        assert cache.get("k3") == "new_val"
         assert cache.get("k4") == "val4"
 
     def test_lru_cache_1(self):
