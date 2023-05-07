@@ -25,7 +25,7 @@ class BaseDescriptor:
 class Binary(BaseDescriptor):
     def __get__(self, instance, owner):
         super().__get__(instance, owner)
-        return bin(getattr(instance, self._instance_attr_name))
+        return int(format(getattr(instance, self._instance_attr_name), 'b'))
 
 
 class Ternary(BaseDescriptor):
@@ -38,7 +38,7 @@ class Ternary(BaseDescriptor):
 class Octal(BaseDescriptor):
     def __get__(self, instance, owner):
         super().__get__(instance, owner)
-        return oct(getattr(instance, self._instance_attr_name))
+        return int(format(getattr(instance, self._instance_attr_name), 'o'))
 
 
 def change_notation(num, base):
@@ -53,7 +53,7 @@ def change_notation(num, base):
             positive_num = positive_num // base
         if num < 0:
             ternary = "-" + ternary
-    return ternary
+    return int(ternary)
 
 
 class Data:

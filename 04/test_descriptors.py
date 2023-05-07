@@ -17,16 +17,27 @@ class TestDescriptors(TestCase):
                       }
         assert attributes == self.positive_data.__dict__
 
-        assert self.positive_data.bin_num == "0b101101"
-        assert self.positive_data.tern_num == "1200"
-        assert self.positive_data.octal_num == "0o55"
+        assert self.positive_data.bin_num == 101101
+        assert self.positive_data.tern_num == 1200
+        assert self.positive_data.octal_num == 55
+
+        with pytest.raises(AttributeError, match="val='string' is not an integer!"):
+            self.positive_data.bin_num = "string"
+        assert self.positive_data.bin_num == 101101
 
     def test_negative_fields(self):
-        assert self.negative_data.bin_num == "-0b101101"
-        assert self.negative_data.tern_num == "-1200"
-        assert self.negative_data.octal_num == "-0o55"
+        assert self.negative_data.bin_num == -101101
+        assert self.negative_data.tern_num == -1200
+        assert self.negative_data.octal_num == -55
+
+        with pytest.raises(AttributeError, match="val='string' is not an integer!"):
+            self.positive_data.bin_num = "string"
+        assert self.negative_data.bin_num == -101101
 
     def test_incorrect_values(self):
         with pytest.raises(AttributeError):
             Data("fake")
             Data([1, 2, 3])
+
+        with pytest.raises(AttributeError, match="val='string' is not an integer!"):
+            self.positive_data = Data("string")
