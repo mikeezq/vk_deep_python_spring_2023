@@ -25,6 +25,15 @@ class TestDescriptors(TestCase):
             self.positive_data.bin_num = "string"
         assert self.positive_data.bin_num == 101101
 
+        self.positive_data.bin_num = 12345
+        assert self.positive_data.bin_num == 11000000111001
+
+        self.positive_data.tern_num = 12345
+        assert self.positive_data.tern_num == 121221020
+
+        self.positive_data.octal_num = 12345
+        assert self.positive_data.octal_num == 30071
+
     def test_negative_fields(self):
         assert self.negative_data.bin_num == -101101
         assert self.negative_data.tern_num == -1200
@@ -33,6 +42,15 @@ class TestDescriptors(TestCase):
         with pytest.raises(AttributeError, match="val='string' is not an integer!"):
             self.positive_data.bin_num = "string"
         assert self.negative_data.bin_num == -101101
+
+        self.negative_data.bin_num = -12345
+        assert self.negative_data.bin_num == -11000000111001
+
+        self.negative_data.tern_num = -12345
+        assert self.negative_data.tern_num == -121221020
+
+        self.negative_data.octal_num = -12345
+        assert self.negative_data.octal_num == -30071
 
     def test_incorrect_values(self):
         with pytest.raises(AttributeError):
