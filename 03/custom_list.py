@@ -13,12 +13,11 @@ class CustomList(list):
 
     def __eq__(self, other):
         CustomList._check_type(other, CustomList._comparing_error_msg)
-        return sum(self) == sum(other) and len(self) == len(other) and all(self[i] == other[i]
-                                                                           for i in range(len(self)))
+        return sum(self) == sum(other)
 
     def __ne__(self, other):
         CustomList._check_type(other, CustomList._comparing_error_msg)
-        return sum(self) != sum(other) or len(self) != len(other) or any(self[i] != other[i] for i in range(len(self)))
+        return sum(self) != sum(other)
 
     def __lt__(self, other):
         CustomList._check_type(other, CustomList._comparing_error_msg)
